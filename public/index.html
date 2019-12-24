@@ -3,19 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
-    <meta
-      http-equiv="X-Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
 
     <title>Svelte app</title>
+    <link rel="stylesheet" href="./styles/main.css" />
     <link rel="stylesheet" href="./build/bundle.css" />
   </head>
   <body>
+    <div id="app"></div>
     <script>
       require("./build/bundle.js");
     </script>

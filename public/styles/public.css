@@ -1,0 +1,26 @@
+html {
+  font-size: 100%;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+body {
+  font-family: var(--font-first);
+  color: var(--color-second);
+  font-weight: 400;
+  display: flex;
+  background: var(--color-first);
+  min-height: 100vh;
+  overflow-x: hidden;
+  direction: ltr;
+}
+#app {
+  overflow: hidden;
+  display: flex;
+  flex: 1;
+}
+.container {
+  width: calc(100% - 2rem);
+  margin: 0 auto;
+  position: relative;
+}

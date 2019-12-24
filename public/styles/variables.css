@@ -1,0 +1,13 @@
+:root {
+  --color-primary: #1dc4d7;
+  --color-secondary: #161477;
+
+  --color-first: #fff;
+  --color-second: #000000;
+  --color-third: #bababa;
+  --color-fourth: #f7f7f7;
+
+  --shadow-first: 0 0.9em 3.2em rgba(0, 0, 0, 0.09);
+
+  --font-first: "Roboto Slab";
+}
