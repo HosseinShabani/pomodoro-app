@@ -1,32 +1,21 @@
 @font-face {
-  font-family: "Roboto Slab";
-  src: url("RobotoSlab-Light.eot");
-  src: url("RobotoSlab-Light.eot?#iefix") format("embedded-opentype"),
-    url("RobotoSlab-Light.woff2") format("woff2"),
-    url("RobotoSlab-Light.woff") format("woff"),
-    url("RobotoSlab-Light.ttf") format("truetype");
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Roboto Slab";
-  src: url("RobotoSlab-SemiBold.eot");
-  src: url("RobotoSlab-SemiBold.eot?#iefix") format("embedded-opentype"),
-    url("RobotoSlab-SemiBold.woff2") format("woff2"),
-    url("RobotoSlab-SemiBold.woff") format("woff"),
-    url("RobotoSlab-SemiBold.ttf") format("truetype");
-  font-weight: 600;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Roboto Slab";
-  src: url("RobotoSlab-Regular.eot");
-  src: url("RobotoSlab-Regular.eot?#iefix") format("embedded-opentype"),
-    url("RobotoSlab-Regular.woff2") format("woff2"),
-    url("RobotoSlab-Regular.woff") format("woff"),
-    url("RobotoSlab-Regular.ttf") format("truetype");
+  font-family: "Raleway";
+  src: url("Raleway-Regular.eot");
+  src: url("Raleway-Regular.eot?#iefix") format("embedded-opentype"),
+    url("Raleway-Regular.woff2") format("woff2"),
+    url("Raleway-Regular.woff") format("woff"),
+    url("Raleway-Regular.ttf") format("truetype");
   font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Raleway";
+  src: url("Raleway-Medium.eot");
+  src: url("Raleway-Medium.eot?#iefix") format("embedded-opentype"),
+    url("Raleway-Medium.woff2") format("woff2"),
+    url("Raleway-Medium.woff") format("woff"),
+    url("Raleway-Medium.ttf") format("truetype");
+  font-weight: 500;
   font-style: normal;
 }

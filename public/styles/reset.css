@@ -132,7 +132,6 @@ button {
   background: transparent;
   border: none;
   font-family: inherit;
-  cursor: pointer;
   outline: none;
   -webkit-tap-highlight-color: transparent;
 }

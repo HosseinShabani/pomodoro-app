@@ -33,8 +33,6 @@
     margin: 1rem 2rem 2rem;
     position: relative;
     border-radius: 0.5rem;
-    padding: 0.8rem;
-    box-sizing: border-box;
     box-shadow: 0 0.1rem 2rem rgba(0, 0, 0, 0.2);
   }
   #app::before {

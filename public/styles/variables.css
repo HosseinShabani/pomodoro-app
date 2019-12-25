@@ -1,5 +1,5 @@
 :root {
-  --color-primary: #1dc4d7;
+  --color-primary: #06e5ff;
   --color-secondary: #161477;
 
   --color-first: #fff;
@@ -9,5 +9,5 @@
 
   --shadow-first: 0 0.9em 3.2em rgba(0, 0, 0, 0.09);
 
-  --font-first: "Roboto Slab";
+  --font-first: "Raleway", sans-serif;
 }
