@@ -2,13 +2,13 @@
   const electron = require("electron").remote;
   import Router from "svelte-spa-router";
   import { tweened } from "svelte/motion";
-  import { cubicOut } from "svelte/easing";
+  import { quadOut } from "svelte/easing";
 
   import Dashboard from "./pages/Dashboard.svelte";
 
   const visible = tweened(0, {
-    duration: 300,
-    easing: cubicOut
+    duration: 250,
+    easing: quadOut
   });
   const routes = {
     "/": Dashboard
@@ -21,7 +21,7 @@
     visible.set(0);
     setTimeout(() => {
       electron.getCurrentWindow().hide();
-    }, 300);
+    }, 250);
   });
 </script>
 
@@ -30,11 +30,12 @@
     display: flex;
     background: var(--color-first);
     flex: 1;
-    margin: 1rem 2%;
+    margin: 1rem 2rem 2rem;
     position: relative;
     border-radius: 0.5rem;
     padding: 0.8rem;
     box-sizing: border-box;
+    box-shadow: 0 0.1rem 2rem rgba(0, 0, 0, 0.2);
   }
   #app::before {
     content: "";

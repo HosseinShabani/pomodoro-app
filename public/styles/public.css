@@ -10,6 +10,6 @@ body {
   font-weight: 400;
   display: flex;
   height: 100vh;
-  overflow-x: hidden;
+  overflow: hidden;
   -webkit-app-region: drag;
 }
