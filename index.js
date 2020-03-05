@@ -76,7 +76,8 @@ class ElectronApp {
       movable: false,
       transparent: true,
       alwaysOnTop: true,
-      hasShadow: false
+      hasShadow: false,
+      title: "Pomodro App"
     });
     mainWindow.loadFile("public/index.html");
     const watcher = this.reloadOnChange(mainWindow);

@@ -1,12 +1,14 @@
 {
-  "name": "svelte-app",
+  "name": "pomodro-app",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "build": "rollup -c",
     "start": "cross-env NODE_ENV=development electron --enable-transparent-visuals --disable-background-timer-throttling .",
     "dev": "rollup -cw",
-    "postinstall": "electron-builder install-app-deps"
+    "postinstall": "electron-builder install-app-deps",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^6.0.0",
@@ -27,5 +29,9 @@
     "electron-json-storage": "4.1.8",
     "svelte-checkbox": "1.0.0-beta.9",
     "svelte-spa-router": "2.0.0"
+  },
+  "build": {
+    "appId": "com.hossein.pomodroapp",
+    "productName": "PomodroApp"
   }
 }
