@@ -22,12 +22,7 @@ function createStore() {
       isCounting: false,
       today: utils.today()
     },
-    days: {
-      "2020/03/04": 4,
-      "2020/03/03": 2,
-      "2020/03/01": 0,
-      "2020/03/06": 6
-    }
+    days: {}
   });
 
   const configTimer = () => {

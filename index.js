@@ -44,6 +44,9 @@ class ElectronApp {
     ipcMain.on("storage", (event, { type, data }) => {
       this.onStorage(type, data, event);
     });
+    ipcMain.on("closeApp", () => {
+      app.quit();
+    });
   };
 
   setupMenubar = () => {

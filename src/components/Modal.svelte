@@ -6,6 +6,7 @@
 </script>
 
 <script>
+  const { ipcRenderer } = require("electron");
   import { tweened } from "svelte/motion";
   import { expoOut } from "svelte/easing";
 
@@ -131,6 +132,19 @@
     font-size: 1.4rem;
     color: (--color-first);
   }
+  .close_button {
+    display: flex;
+    height: 2rem;
+    margin-top: 1rem;
+    align-items: center;
+    padding: 0;
+  }
+  .close_button p {
+    color: var(--color-second);
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgb(180, 14, 14);
+  }
 </style>
 
 {#if visible}
@@ -153,6 +167,13 @@
             value={$store.configs[item.key]}
             on:change={({ detail }) => handleChange(item.key, detail)} />
         {/each}
+        <button
+          class="close_button"
+          on:click={() => {
+            ipcRenderer.send('closeApp');
+          }}>
+          <p>Close App</p>
+        </button>
       </div>
     </div>
   </div>
