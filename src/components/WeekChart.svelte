@@ -2,31 +2,35 @@
   const electron = require("electron").remote;
   import { tweened } from "svelte/motion";
   import { cubicInOut } from "svelte/easing";
+  import dayjs from "dayjs";
+
+  import { store } from "../store";
+  import { utils } from "../utils";
 
   const progress = tweened(0, {
     duration: 700,
     easing: cubicInOut
   });
-  const days = [
+  let days = [
     {
       name: "Monday",
-      pomos: 4
+      pomos: 0
     },
     {
       name: "Tuesday",
-      pomos: 6
+      pomos: 0
     },
     {
       name: "Wednesday",
-      pomos: 3
+      pomos: 0
     },
     {
       name: "Thursday",
-      pomos: 5
+      pomos: 0
     },
     {
       name: "Friday",
-      pomos: 3
+      pomos: 0
     },
     {
       name: "Saturday",
@@ -37,12 +41,26 @@
       pomos: 0
     }
   ];
-  let activeDay = "Friday";
+  const activeDay = dayjs().format("dddd");
+  const activeDayIndex = days.indexOf(
+    days.find(item => item.name === activeDay)
+  );
   let biggestPomo = 0;
-
-  days.forEach(day => {
-    if (day.pomos > biggestPomo) biggestPomo = day.pomos;
+  store.subscribe(data => {
+    days = days.map((item, i) => {
+      item.pomos =
+        data.days[
+          dayjs(utils.today())
+            .add(i - activeDayIndex, "day")
+            .format("YYYY/MM/DD")
+        ] || 0;
+      return item;
+    });
+    days.forEach(day => {
+      if (day.pomos > biggestPomo) biggestPomo = day.pomos;
+    });
   });
+
   electron.getCurrentWindow().on("show", () => {
     progress.set(1);
   });
@@ -76,7 +94,7 @@
     display: flex;
     flex: 1;
     margin: 0.6rem 0;
-    opacity: 0.6;
+    opacity: 0.4;
     position: relative;
   }
   .itemDay-pomos.active,

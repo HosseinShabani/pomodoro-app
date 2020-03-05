@@ -25,10 +25,10 @@
       electron.getCurrentWindow().hide();
     }, 250);
   });
-  storage.load({ key: "appData" }).then(data => {
+  storage.load({ key: "appStorage" }).then(data => {
     if (data && Object.values(data).length) store.changeAppData(data);
     store.subscribe(data => {
-      storage.save({ key: "appData", data });
+      storage.save({ key: "appStorage", data });
     });
   });
 </script>

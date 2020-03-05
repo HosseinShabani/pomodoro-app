@@ -1,5 +1,6 @@
 <script>
   import { WeekChart, openModal } from ".";
+  import dayjs from "dayjs";
 
   const openSettingModal = () => {
     openModal();
@@ -59,11 +60,10 @@
 <header class="header">
   <div class="header__top">
     <div class="header__top-left">
-      <h2>Dashboard</h2>
-      <span>Friday , March 20</span>
+      <h2>Pomodro App</h2>
+      <span>{dayjs().format('dddd , MMM D')}</span>
     </div>
     <div class="header__top-right">
-      <p class="tasksLabel">4/12</p>
       <button class="settingsButton" on:click={openSettingModal}>
         <i class="icons icon-settings" />
       </button>

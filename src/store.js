@@ -19,9 +19,15 @@ function createStore() {
       status: ["pomodro", "shortBreak", "longBreak"][0],
       remainTime: 25 * 60,
       maxTime: 25 * 60,
-      isCounting: false
+      isCounting: false,
+      today: utils.today()
     },
-    days: []
+    days: {
+      "2020/03/04": 4,
+      "2020/03/03": 2,
+      "2020/03/01": 0,
+      "2020/03/06": 6
+    }
   });
 
   const configTimer = () => {
@@ -43,6 +49,7 @@ function createStore() {
       const { longBreakAfter, sound } = prevData.configs;
       const { status, round } = prevData.app;
       if (status === "pomodro") {
+        prevData.days[utils.today()] = round + 1;
         prevData.app.status =
           round + 1 >= longBreakAfter ? "longBreak" : "shortBreak";
         prevData.app.round += 1;
@@ -87,7 +94,7 @@ function createStore() {
         return prevData;
       });
       if (remainTime === 1) finishTimer();
-    }, 10);
+    }, 1000);
   };
 
   return {
@@ -112,9 +119,19 @@ function createStore() {
     },
     changeAppData: data => {
       update(prevData => {
-        // check kardane inke hamun ruz hast ya na
         prevData = { ...prevData, ...data };
         prevData.app.isCounting = false;
+        // if not today
+        if (prevData.app.today !== utils.today()) {
+          prevData.app = {
+            isCounting: false,
+            maxTime: 0,
+            remainTime: 0,
+            round: 0,
+            status: "pomodro",
+            today: utils.today()
+          };
+        }
         return prevData;
       });
       configTimer();
