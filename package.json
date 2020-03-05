@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rollup -c",
-    "start": "cross-env NODE_ENV=development electron --enable-transparent-visuals .",
+    "start": "cross-env NODE_ENV=development electron --enable-transparent-visuals --disable-background-timer-throttling .",
     "dev": "rollup -cw",
     "postinstall": "electron-builder install-app-deps"
   },

@@ -1,6 +1,9 @@
 <script>
   import { onMount } from "svelte";
+
   import { Header } from "../components";
+  import { store } from "../store";
+  import { utils } from "../utils";
 
   let playSvg;
   let svgLength = 0;
@@ -22,6 +25,11 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+  }
+  .timer__status {
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    color: var(--color-third);
   }
   .timer__counter {
     display: flex;
@@ -58,6 +66,7 @@
     top: 0;
     right: 0;
     position: absolute;
+    z-index: 1;
   }
   .playButton svg circle {
     transform: rotate(-90deg);
@@ -76,14 +85,20 @@
     justify-content: center;
     align-items: center;
     font-size: 1rem;
+    z-index: 2;
   }
 </style>
 
 <div class="dashboardPage">
   <Header />
   <section class="timer">
+    <p class="timer__status">
+      {$store.app.status === 'pomodro' ? 'Working' : $store.app.status === 'shortBreak' ? 'Short Break' : 'Long Break'}
+    </p>
     <div class="timer__counter">
-      <p class="timer__counter-time">4 : 59</p>
+      <p class="timer__counter-time">
+        {utils.formatedDate($store.app.remainTime)}
+      </p>
       <span class="timer__counter-min">min</span>
     </div>
     <div class="timer__buttons">
@@ -96,10 +111,10 @@
             r="92"
             stroke-width="8"
             stroke-dasharray={svgLength}
-            stroke-dashoffset={0} />
+            stroke-dashoffset={svgLength - ($store.app.remainTime * svgLength) / $store.app.maxTime} />
         </svg>
-        <button>
-          <i class="icons icon-play" />
+        <button on:click={store.toggleStart}>
+          <i class={`icons icon-${$store.app.isCounting ? 'pause' : 'play'}`} />
         </button>
       </div>
     </div>

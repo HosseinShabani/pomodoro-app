@@ -1,4 +1,11 @@
-const { app, BrowserWindow, ipcMain, Tray, nativeTheme } = require("electron");
+const {
+  app,
+  BrowserWindow,
+  ipcMain,
+  Tray,
+  nativeTheme,
+  powerSaveBlocker
+} = require("electron");
 const path = require("path");
 
 const assetsDirectory = path.join(__dirname, "src/assets/media");
@@ -8,6 +15,7 @@ let tray = undefined;
 
 class ElectronApp {
   constructor() {
+    powerSaveBlocker.start("prevent-app-suspension");
     app.dock.hide();
     app.on("ready", this.initial);
     app.on("window-all-closed", () => {
@@ -48,7 +56,8 @@ class ElectronApp {
       width: 400,
       height: 500,
       webPreferences: {
-        nodeIntegration: true
+        nodeIntegration: true,
+        backgroundThrottling: true
       },
       icon: "icon.png",
       resizable: false,
