@@ -5,6 +5,7 @@
   import { quadOut } from "svelte/easing";
 
   import Dashboard from "./pages/Dashboard.svelte";
+  import { Modal } from "./components";
 
   const visible = tweened(0, {
     duration: 250,
@@ -53,4 +54,5 @@
   id="app"
   style="transform: translateY({10 - $visible * 10}px); opacity: {$visible}">
   <Router {routes} />
+  <Modal />
 </div>

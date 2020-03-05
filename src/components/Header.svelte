@@ -1,5 +1,9 @@
 <script>
-  import { WeekChart } from ".";
+  import { WeekChart, openModal } from ".";
+
+  const openSettingModal = () => {
+    openModal();
+  };
 </script>
 
 <style>
@@ -60,7 +64,7 @@
     </div>
     <div class="header__top-right">
       <p class="tasksLabel">4/12</p>
-      <button class="settingsButton">
+      <button class="settingsButton" on:click={openSettingModal}>
         <i class="icons icon-settings" />
       </button>
     </div>
