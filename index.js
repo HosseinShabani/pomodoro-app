@@ -7,6 +7,8 @@ const {
   powerSaveBlocker
 } = require("electron");
 const path = require("path");
+const os = require("os");
+const storage = require("electron-json-storage");
 
 const assetsDirectory = path.join(__dirname, "src/assets/media");
 const mode = process.env.NODE_ENV;
@@ -15,6 +17,7 @@ let tray = undefined;
 
 class ElectronApp {
   constructor() {
+    storage.setDataPath(os.tmpdir());
     powerSaveBlocker.start("prevent-app-suspension");
     app.dock.hide();
     app.on("ready", this.initial);
@@ -37,6 +40,9 @@ class ElectronApp {
     });
     ipcMain.on("setTrayTitle", (__, title) => {
       tray.setTitle(title);
+    });
+    ipcMain.on("storage", (event, { type, data }) => {
+      this.onStorage(type, data, event);
     });
   };
 
@@ -81,7 +87,9 @@ class ElectronApp {
       watcher.close();
     });
     // mainWindow.openDevTools({ mode: "detach" });
-    this.showWindow();
+    setTimeout(() => {
+      this.showWindow();
+    }, 500);
   };
 
   getIcon = () => {
@@ -126,6 +134,25 @@ class ElectronApp {
       mainWindow.emit("animateHidden");
     } else {
       this.showWindow();
+    }
+  };
+
+  onStorage = (type, { key, data }, event) => {
+    switch (type) {
+      case "save":
+        storage.set(key, data, () => false);
+        break;
+      case "remove":
+        storage.remove(key);
+        break;
+      case "load":
+        storage.get(key, (error, data) => {
+          if (error) return;
+          else event.reply("storage-load", data);
+        });
+        break;
+      default:
+        break;
     }
   };
 }

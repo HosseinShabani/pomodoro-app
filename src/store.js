@@ -1,4 +1,7 @@
+const { ipcRenderer } = require("electron");
 import { writable } from "svelte/store";
+
+import { utils } from "./utils";
 
 function createStore() {
   let interval;
@@ -23,15 +26,19 @@ function createStore() {
 
   const configTimer = () => {
     update(prevData => {
-      const time = prevData.configs[prevData.app.status] * 60;
-      prevData.app.remainTime = time;
-      prevData.app.maxTime = time;
+      const { isCounting, remainTime, maxTime, status } = prevData.app;
+      const time = prevData.configs[status] * 60;
+      if (!isCounting && (remainTime === maxTime || remainTime === 0)) {
+        prevData.app.remainTime = time;
+        prevData.app.maxTime = time;
+      }
       return prevData;
     });
   };
 
   const finishTimer = () => {
     clearInterval(interval);
+    ipcRenderer.send("setTrayTitle", "");
     update(prevData => {
       const { longBreakAfter, sound } = prevData.configs;
       const { status, round } = prevData.app;
@@ -41,10 +48,12 @@ function createStore() {
         prevData.app.round += 1;
       } else prevData.app.status = "pomodro";
       prevData.app.isCounting = false;
-      if (sound)
-        new Notification("Pomodro App", {
+      if (sound) {
+        const notif = new Notification("Pomodro App", {
           body: "Your " + status + " has ended"
         });
+        notif.onclick = () => ipcRenderer.send("show-window");
+      }
       return prevData;
     });
     configTimer();
@@ -65,11 +74,16 @@ function createStore() {
         const { maxTime, status } = prevData.app;
         remainTime = prevData.app.remainTime;
         if (maxTime === remainTime && prevData.configs.sound) {
-          new Notification("Pomodro App", {
+          const notif = new Notification("Pomodro App", {
             body: "Your " + status + " has started"
           });
+          notif.onclick = () => ipcRenderer.send("show-window");
         }
         prevData.app.remainTime = remainTime - 1;
+        ipcRenderer.send(
+          "setTrayTitle",
+          utils.formatedDate(prevData.app.remainTime)
+        );
         return prevData;
       });
       if (remainTime === 1) finishTimer();
@@ -80,20 +94,30 @@ function createStore() {
     subscribe,
     changeConfig: (key, value) => {
       update(prevData => {
-        const { isCounting, remainTime, maxTime } = prevData.app;
         prevData.configs[key] = value;
-        !isCounting && remainTime === maxTime && configTimer();
+        configTimer();
+
         return prevData;
       });
     },
     toggleStart: () => {
       update(prevData => {
         const { isCounting } = prevData.app;
+        ipcRenderer.send("setTrayTitle", "");
         if (!isCounting) startTimer();
         else clearInterval(interval);
         prevData.app.isCounting = !isCounting;
         return prevData;
       });
+    },
+    changeAppData: data => {
+      update(prevData => {
+        // check kardane inke hamun ruz hast ya na
+        prevData = { ...prevData, ...data };
+        prevData.app.isCounting = false;
+        return prevData;
+      });
+      configTimer();
     }
   };
 }

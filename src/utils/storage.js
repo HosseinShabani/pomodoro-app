@@ -1,22 +1,28 @@
-import { default as store } from "electron-json-storage";
-const os = require("os");
-
-store.setDataPath(os.tmpdir());
+const { ipcRenderer } = require("electron");
 
 class Storage {
-  save({ key, data }, cb = () => false) {
-    store.set(key, data, cb);
+  save({ key, data }) {
+    ipcRenderer.send("storage", {
+      type: "save",
+      data: { key, data }
+    });
   }
 
   remove({ key }) {
-    storage.remove(key);
+    ipcRenderer.send("storage", {
+      type: "remove",
+      data: { key }
+    });
   }
 
   load({ key }) {
-    return new Promise((resolve, reject) => {
-      store.get(key, (error, data) => {
-        if (error || !data) reject(error);
-        else resolve(data);
+    return new Promise(resolve => {
+      ipcRenderer.send("storage", {
+        type: "load",
+        data: { key }
+      });
+      ipcRenderer.on("storage-load", (__, data) => {
+        resolve(data);
       });
     });
   }

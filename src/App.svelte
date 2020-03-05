@@ -6,6 +6,8 @@
 
   import Dashboard from "./pages/Dashboard.svelte";
   import { Modal } from "./components";
+  import { storage } from "./utils";
+  import { store } from "./store";
 
   const visible = tweened(0, {
     duration: 250,
@@ -14,7 +16,6 @@
   const routes = {
     "/": Dashboard
   };
-
   electron.getCurrentWindow().on("show", () => {
     visible.set(1);
   });
@@ -23,6 +24,12 @@
     setTimeout(() => {
       electron.getCurrentWindow().hide();
     }, 250);
+  });
+  storage.load({ key: "appData" }).then(data => {
+    if (data && Object.values(data).length) store.changeAppData(data);
+    store.subscribe(data => {
+      storage.save({ key: "appData", data });
+    });
   });
 </script>
 
