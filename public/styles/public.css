@@ -1,0 +1,14 @@
+html {
+  font-size: 100%;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+body {
+  font-family: var(--font-first);
+  color: var(--color-second);
+  font-weight: 400;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}

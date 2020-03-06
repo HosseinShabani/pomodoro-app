@@ -1,0 +1,13 @@
+:root {
+  --color-primary: rgb(6, 229, 255);
+  --color-secondary: rgb(22, 20, 119);
+
+  --color-first: #fff;
+  --color-second: #000000;
+  --color-third: #a1a0a0;
+  --color-fourth: rgba(22, 20, 119, 0.13);
+
+  --shadow-first: 0 0.9em 3.2em rgba(0, 0, 0, 0.09);
+
+  --font-first: "Raleway", sans-serif;
+}
