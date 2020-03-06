@@ -44,23 +44,12 @@
     padding: 0.3rem;
     font-size: 1.3rem;
   }
-  .tasksLabel {
-    padding: 0.3rem 1rem;
-    background: var(--color-primary);
-    color: var(--color-secondary);
-    font-size: 0.85rem;
-    font-weight: 500;
-    font-family: sans-serif;
-    letter-spacing: 1px;
-    border-radius: 1rem;
-    margin: 0 0.3rem 0.3rem;
-  }
 </style>
 
 <header class="header">
   <div class="header__top">
     <div class="header__top-left">
-      <h2>Pomodro App</h2>
+      <h2>Pomodoro App</h2>
       <span>{dayjs().format('dddd , MMM D')}</span>
     </div>
     <div class="header__top-right">

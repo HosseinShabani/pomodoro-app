@@ -38,12 +38,14 @@
     display: flex;
     background: var(--color-first);
     flex: 1;
-    margin: 1rem 2rem 2rem;
     position: relative;
     border-radius: 0.5rem;
+  }
+  #app.platform-darwin {
+    margin: 1rem 2rem 2rem;
     box-shadow: 0 0.1rem 2rem rgba(0, 0, 0, 0.2);
   }
-  #app::before {
+  #app.platform-darwin::before {
     content: "";
     width: 0;
     height: 0;
@@ -59,6 +61,7 @@
 
 <div
   id="app"
+  class={`platform-${process.platform}`}
   style="transform: translateY({10 - $visible * 10}px); opacity: {$visible}">
   <Router {routes} />
   <Modal />

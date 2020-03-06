@@ -44,6 +44,10 @@
       bind:value
       on:change={handleChange} />
   {:else if type === 'switch'}
-    <Checkbox size="1.9rem" bind:checked={value} on:change={handleChange} />
+    <Checkbox
+      size="1.9rem"
+      secondaryColor="rgba(22, 20, 119, 0.15)"
+      bind:checked={value}
+      on:change={handleChange} />
   {/if}
 </div>

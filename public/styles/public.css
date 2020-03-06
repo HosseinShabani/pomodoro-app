@@ -11,5 +11,4 @@ body {
   display: flex;
   height: 100vh;
   overflow: hidden;
-  -webkit-app-region: drag;
 }

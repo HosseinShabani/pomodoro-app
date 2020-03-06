@@ -4,6 +4,7 @@ const {
   ipcMain,
   Tray,
   nativeTheme,
+  screen,
   powerSaveBlocker
 } = require("electron");
 const path = require("path");
@@ -19,7 +20,7 @@ class ElectronApp {
   constructor() {
     storage.setDataPath(os.tmpdir());
     powerSaveBlocker.start("prevent-app-suspension");
-    app.dock.hide();
+    app.dock && app.dock.hide();
     app.on("ready", this.initial);
     app.on("window-all-closed", () => {
       if (process.platform !== "darwin") {
@@ -62,8 +63,8 @@ class ElectronApp {
 
   createWindow = () => {
     mainWindow = new BrowserWindow({
-      width: 400,
-      height: 500,
+      width: process.platform == "darwin" ? 400 : 350,
+      height: process.platform == "darwin" ? 500 : 450,
       webPreferences: {
         nodeIntegration: true,
         backgroundThrottling: true
@@ -77,7 +78,9 @@ class ElectronApp {
       transparent: true,
       alwaysOnTop: true,
       hasShadow: false,
-      title: "Pomodro App"
+      title: "Pomodoro App",
+      maximizable: false,
+      minimizable: false
     });
     mainWindow.loadFile("public/index.html");
     const watcher = this.reloadOnChange(mainWindow);
@@ -125,8 +128,9 @@ class ElectronApp {
       x = Math.round(trayPos.x + trayPos.width / 2 - windowPos.width / 2);
       y = Math.round(trayPos.y + trayPos.height);
     } else {
-      x = Math.round(trayPos.x + trayPos.width / 2 - windowPos.width / 2);
-      y = Math.round(trayPos.y + trayPos.height * 10);
+      const { width, height } = screen.getPrimaryDisplay().bounds;
+      x = Math.round(width - windowPos.width);
+      y = Math.round(height - windowPos.height);
     }
 
     mainWindow.setPosition(x, y, false);

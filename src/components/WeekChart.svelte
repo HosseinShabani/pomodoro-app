@@ -46,6 +46,7 @@
     days.find(item => item.name === activeDay)
   );
   let biggestPomo = 0;
+  let allZero = true;
   store.subscribe(data => {
     days = days.map((item, i) => {
       item.pomos =
@@ -58,6 +59,7 @@
     });
     days.forEach(day => {
       if (day.pomos > biggestPomo) biggestPomo = day.pomos;
+      if (allZero) allZero = day.pomos === 0;
     });
   });
 
@@ -120,7 +122,7 @@
       <div class:active={activeDay === day.name} class="itemDay__bar">
         <div
           class="-bar"
-          style="height: {$progress * ((100 * day.pomos) / biggestPomo)}%" />
+          style="height: {$progress * (allZero ? 100 : (100 * day.pomos) / biggestPomo)}%" />
       </div>
       <p class="itemDay-day">{day.name.slice(0, 1)}</p>
     </div>

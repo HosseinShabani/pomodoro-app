@@ -1,5 +1,5 @@
 {
-  "name": "pomodro-app",
+  "name": "pomodoro-app",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -31,7 +31,7 @@
     "svelte-spa-router": "2.0.0"
   },
   "build": {
-    "appId": "com.hossein.pomodroapp",
-    "productName": "PomodroApp"
+    "appId": "com.hossein.pomodoroapp",
+    "productName": "PomodoroApp"
   }
 }
