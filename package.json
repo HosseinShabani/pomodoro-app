@@ -7,8 +7,8 @@
     "start": "cross-env NODE_ENV=development electron --enable-transparent-visuals --disable-background-timer-throttling .",
     "dev": "rollup -cw",
     "postinstall": "electron-builder install-app-deps",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "package-app": "electron-builder -m -w --linux deb",
+    "package-app-32": "electron-builder --win --linux deb --ia32"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^6.0.0",
@@ -30,8 +30,22 @@
     "svelte-checkbox": "1.0.0-beta.9",
     "svelte-spa-router": "2.0.0"
   },
+  "author": {
+    "name": "Hossein Shabani",
+    "email": "hosseinshabani.work@gmail.com"
+  },
   "build": {
     "appId": "com.hossein.pomodoroapp",
-    "productName": "PomodoroApp"
+    "productName": "PomodoroApp",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    }
   }
 }
